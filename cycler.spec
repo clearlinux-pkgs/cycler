@@ -4,7 +4,7 @@
 #
 Name     : cycler
 Version  : 0.10.0
-Release  : 5
+Release  : 6
 URL      : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
 Source0  : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
 Summary  : No detailed summary available
@@ -16,6 +16,7 @@ BuildRequires : pip
 BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
+BuildRequires : six
 
 %description
 cycler: composable cycles
@@ -35,13 +36,15 @@ python components for the cycler package.
 
 %build
 export LANG=C
+export SOURCE_DATE_EPOCH=1484540895
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
+export SOURCE_DATE_EPOCH=1484540895
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot}
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
 
 %files
 %defattr(-,root,root,-)
