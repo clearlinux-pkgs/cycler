@@ -4,7 +4,7 @@
 #
 Name     : cycler
 Version  : 0.10.0
-Release  : 29
+Release  : 30
 URL      : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
 Source0  : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
 Summary  : No detailed summary available
