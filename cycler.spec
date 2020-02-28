@@ -4,31 +4,37 @@
 #
 Name     : cycler
 Version  : 0.10.0
-Release  : 31
+Release  : 32
 URL      : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
 Source0  : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
-Summary  : No detailed summary available
+Summary  : Composable style cycles
 Group    : Development/Tools
 License  : BSD-3-Clause
-Requires: cycler-python3
-Requires: cycler-python
+Requires: cycler-license = %{version}-%{release}
+Requires: cycler-python = %{version}-%{release}
+Requires: cycler-python3 = %{version}-%{release}
 Requires: six
-BuildRequires : pbr
-BuildRequires : pip
-
-BuildRequires : python3-dev
-BuildRequires : setuptools
+BuildRequires : buildreq-distutils3
 BuildRequires : six
 
 %description
 cycler: composable cycles
 =========================
+
 Docs: http://matplotlib.org/cycler/
+
+%package license
+Summary: license components for the cycler package.
+Group: Default
+
+%description license
+license components for the cycler package.
+
 
 %package python
 Summary: python components for the cycler package.
 Group: Default
-Requires: cycler-python3
+Requires: cycler-python3 = %{version}-%{release}
 
 %description python
 python components for the cycler package.
@@ -38,6 +44,7 @@ python components for the cycler package.
 Summary: python3 components for the cycler package.
 Group: Default
 Requires: python3-core
+Provides: pypi(Cycler)
 
 %description python3
 python3 components for the cycler package.
@@ -45,24 +52,39 @@ python3 components for the cycler package.
 
 %prep
 %setup -q -n cycler-0.10.0
+cd %{_builddir}/cycler-0.10.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1523287573
-python3 setup.py build -b py3
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1582915216
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/cycler
+cp %{_builddir}/cycler-0.10.0/LICENSE %{buildroot}/usr/share/package-licenses/cycler/34f890d5e457315a3ad9f828195b2164e3284a92
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/cycler/34f890d5e457315a3ad9f828195b2164e3284a92
 
 %files python
 %defattr(-,root,root,-)
