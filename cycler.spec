@@ -4,7 +4,7 @@
 #
 Name     : cycler
 Version  : 0.10.0
-Release  : 32
+Release  : 33
 URL      : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
 Source0  : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
 Summary  : Composable style cycles
@@ -20,7 +20,6 @@ BuildRequires : six
 %description
 cycler: composable cycles
 =========================
-
 Docs: http://matplotlib.org/cycler/
 
 %package license
@@ -44,7 +43,8 @@ python components for the cycler package.
 Summary: python3 components for the cycler package.
 Group: Default
 Requires: python3-core
-Provides: pypi(Cycler)
+Provides: pypi(cycler)
+Requires: pypi(six)
 
 %description python3
 python3 components for the cycler package.
@@ -59,8 +59,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582915216
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1583517648
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
