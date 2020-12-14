@@ -4,7 +4,7 @@
 #
 Name     : cycler
 Version  : 0.10.0
-Release  : 34
+Release  : 35
 URL      : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
 Source0  : https://github.com/matplotlib/cycler/archive/v0.10.0.tar.gz
 Summary  : Composable style cycles
